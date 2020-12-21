@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class ServicoPrestadoService {
@@ -25,6 +26,10 @@ public class ServicoPrestadoService {
 
     public ServicoPrestado salvar(ServicoPrestado obj){
         return repo.save(obj);
+    }
+
+    public List<ServicoPrestado> findServicoPrestado(String nome, Integer mes){
+        return repo.findByNomeClienteAndMes("%"+nome+"%", mes);
     }
 
     public ServicoPrestado fromDTO(ServicoPrestadoDTO objDTO){

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/servicos-prestados")
@@ -23,5 +24,11 @@ public class ServicoPrestadoResource {
     {
         ServicoPrestado obj = service.fromDTO(objDto);
         return service.salvar(obj);
+    }
+
+    @GetMapping
+    public List<ServicoPrestado> pesquisar(@RequestParam(value= "nome", required = false, defaultValue = "") String nome,
+                                           @RequestParam(value = "mes", required = false) Integer mes){
+        return service.findServicoPrestado(nome, mes);
     }
 }
