@@ -2,6 +2,7 @@ package br.com.pedrohfs.servicoclientes.services;
 
 import br.com.pedrohfs.servicoclientes.domain.Usuario;
 import br.com.pedrohfs.servicoclientes.repository.UsuarioRepository;
+import br.com.pedrohfs.servicoclientes.services.exceptions.UsuarioCadastradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,10 @@ public class UsuarioService implements UserDetailsService {
 
 
     public Usuario salvar(Usuario usuario){
+        boolean exists = repo.existsByUsername(usuario.getUsername());
+        if(exists){
+            throw new UsuarioCadastradoException();
+        }
         return repo.save(usuario);
     }
 
